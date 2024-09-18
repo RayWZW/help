@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: #ff4444;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .video-grid video {
+            width: calc((100% / 7) - 10px); /* Adjust width to fit 7 items per row with gap */
+            max-width: calc((100% / 7) - 10px);
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+
+        /* Optional: Adjust video aspect ratio */
+        .video-grid video {
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('upload_video') }}">Upload Video</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Random Videos</h1>
+        <div class="video-grid">
+            {% for video in videos %}
+                <video controls>
+                    <source src="{{ url_for('videos', filename=video.split('/')[-1]) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

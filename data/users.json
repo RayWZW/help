@@ -1,0 +1,24 @@
+{
+    "0": {
+        "password": "0",
+        "channel_url": "aLK2e3LHp3",
+        "profile_pic": ""
+    },
+    "Me": {
+        "password": "test",
+        "channel_url": "g3uEJHBJu7",
+        "profile_pic": "profile_pics/Me.jpg",
+        "videos": [
+            "videos/youtube-64-0lSlAu7E.mp4",
+            "videos/youtube-64-0lSlAu7E.mp4",
+            "videos/audio.destroy.mov",
+            "videos/rapidsave.com_bo_sinn_type_shit_by_me-xz0s1n1poigd1.mp4"
+        ]
+    },
+    "GloryToTheCCP": {
+        "password": "123456",
+        "channel_url": "h2u5Ykllml",
+        "profile_pic": "profile_pics/GloryToTheCCP.jpg",
+        "videos": []
+    }
+}

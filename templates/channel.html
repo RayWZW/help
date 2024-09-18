@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel - {{ channel_url }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: #ff4444;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .channel-info {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .channel-info img.profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .channel-info p {
+            margin: 10px 0;
+        }
+
+        .channel-info strong {
+            display: inline-block;
+            width: 150px;
+        }
+
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .video-grid video {
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+
+        form {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+            margin: 20px 0;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        form input[type="file"] {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        form button {
+            padding: 10px 15px;
+            background-color: #ff4444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to {{ channel_url }}</h1>
+        <div class="channel-info">
+            {% if user.profile_pic %}
+                <img src="{{ url_for('profile_pics', filename=user.profile_pic.split('/')[-1]) }}" alt="Profile Picture" class="profile-pic">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default_profile_pic.png') }}" alt="Default Profile Picture" class="profile-pic">
+            {% endif %}
+            <p><strong>Channel URL:</strong> {{ channel_url }}</p>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+        </div>
+        <h2>Videos</h2>
+        <div class="video-grid">
+            {% for video in user.videos %}
+                <video controls>
+                    <source src="{{ url_for('videos', filename=video.split('/')[-1]) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% endfor %}
+        </div>
+        {% if 'username' in session %}
+        <form action="{{ url_for('upload_video') }}" method="post" enctype="multipart/form-data">
+            <label for="video">Upload a video:</label>
+            <input type="file" id="video" name="video" accept="video/*">
+            <button type="submit">Upload Video</button>
+        </form>
+        {% endif %}
+    </main>
+</body>
+</html>
